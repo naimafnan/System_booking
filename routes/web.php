@@ -85,7 +85,7 @@ Route::resource('/create-Car',ProviderController::class);
 Route::post('/create-Car',[ProviderController::class,'store'])->name('createCar');
 
 //admin create meeting room provider
-Route::get('/meetingRoom-edit/{$id}',[ProviderController::class,'show'])->name('editRoom');
+Route::get('/meetingRoom-edit/{$id}',[ProviderController::class,'edit'])->name('editRoom');
 Route::get('/create-MeetingRoom',[ProviderController::class,'create2'])->name('MeetingRoom');
 Route::post('/create-MeetingRoom',[ProviderController::class,'store2'])->name('createMeetingRoom');
 

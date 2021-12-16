@@ -195,6 +195,7 @@ class HomepageController extends Controller
             $address=$request->get('add');
             $services=$request->get('service');
             $providers=$request->get('provider');
+            // dd($providers);
             //get all data from db
             // $providers=provider::join("provider_details","provider_details.provider_id","=","providers.id")
             // ->get();\
@@ -207,6 +208,7 @@ class HomepageController extends Controller
                 $reserves=User::join("provider_details","provider_details.user_id","=","users.id")
                 ->Where("provider_details.provider_id","LIKE","%".$providers."%")
                 ->get();
+                
             }
             if($keyword){
                 $reserves=User::join("provider_details","provider_details.user_id","=","users.id")

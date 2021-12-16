@@ -41,47 +41,70 @@ class ProviderController extends Controller
      */
     public function store(Request $request)
     {
-        $users=User::create([
-            'name'=>$request->input('name'),
-            'role_id'=>4,
-            'address1'=>$request->input('add1'),
-            'address2'=>$request->input('add2'),
-            'address3'=>$request->input('add3'),
-            'address4'=>$request->input('add4'),
-            'postcode'=>$request->input('postcode'),
-            'state'=>$request->input('state')
-        ]);
-        $details=provider_details::create([
-            'user_id'=>$users->id,
-            'provider_id'=>3,
-            'provider_type'=>$request->input('provider_type'),
-            'company_name'=>$request->input('company_name'),
-            'services_id'=>$request->input('service'),
-            'level'=>$request->input('level')
-        ]);
+        // $users=User::create([
+        //     'name'=>$request->input('name'),
+        //     'role_id'=>4,
+        //     'address1'=>$request->input('add1'),
+        //     'address2'=>$request->input('add2'),
+        //     'address3'=>$request->input('add3'),
+        //     'address4'=>$request->input('add4'),
+        //     'postcode'=>$request->input('postcode'),
+        //     'state'=>$request->input('state')
+        // ]);
+        // $details=provider_details::create([
+        //     'user_id'=>$users->id,
+        //     'provider_id'=>3,
+        //     'provider_type'=>$request->input('provider_type'),
+        //     'company_name'=>$request->input('company_name'),
+        //     'services_id'=>$request->input('service'),
+        //     'level'=>$request->input('level')
+        // ]);
+        $users = new User();
+        $users-> name = $request->input('name');
+        $users-> role_id = 4;
+        $users-> address1 = $request->input('add1');
+        $users-> address2 =$request->input('add2');
+        $users-> address3 = $request->input('add3');
+        $users-> address4 = $request->input('add4');
+        $users-> postcode = $request->input('postcode');
+        $users-> state = $request->input('state');
+        $users-> save();
+
+        $providerDetails = new provider_details();
+        $providerDetails->user_id = $users->id;
+        $providerDetails->provider_id=3;
+        $providerDetails->provider_type=$request->input('provider_type');
+        $providerDetails->company_name=$request->input('company_name');
+        $providerDetails->services_id=$request->input('service');
+        $providerDetails->level=$request->input('level');
+        $providerDetails->save();
+        
+
         return redirect()->back()->with('msg','Provider Car has been added');
 
     }
     public function store2(Request $request)
     {
-        $users=User::create([
-            'name'=>$request->input('name'),
-            'role_id'=>5,
-            'address1'=>$request->input('address1'),
-            'address2'=>$request->input('address2'),
-            'address3'=>$request->input('address3'),
-            'address4'=>$request->input('address4'),
-            'postcode'=>$request->input('postcode'),
-            'state'=>$request->input('state')
-        ]);
-        $details=provider_details::create([
-            'user_id'=>$users->id,
-            'provider_id'=>2,
-            'provider_type'=>$request->input('provider_type'),
-            'company_name'=>$request->input('company_name'),
-            'services_id'=>$request->input('service'),
-            'level'=>$request->input('level')
-        ]);
+        $users = new User();
+        $users-> name = $request->input('name');
+        $users-> role_id = 5;
+        $users-> address1 = $request->input('address1');
+        $users-> address2 =$request->input('address2');
+        $users-> address3 = $request->input('address3');
+        $users-> address4 = $request->input('address4');
+        $users-> postcode = $request->input('postcode');
+        $users-> state = $request->input('state');
+        $users-> save();
+
+        $providerDetails = new provider_details();
+        $providerDetails->user_id = $users->id;
+        $providerDetails->provider_id=2;
+        $providerDetails->provider_type=$request->input('provider_type');
+        $providerDetails->company_name=$request->input('company_name');
+        $providerDetails->services_id=$request->input('service');
+        $providerDetails->level=$request->input('level');
+        $providerDetails->save();
+        
 
         return redirect()->back()->with('msg','Provider Meeting Room has been added');
 
@@ -95,8 +118,8 @@ class ProviderController extends Controller
      */
     public function show($id)
     {
-        $users=User::find($id);
-        return view('admin.provider.edit',compact('users'));
+        // $users=User::find($id);
+        // return view('admin.provider.edit',compact('users'));
     }
 
     /**
