@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 use App\Models\Role;
 use App\Models\provider;
+use App\Models\provider_type;
 use App\Models\Services;
+use App\Models\state;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -39,51 +41,35 @@ class DatabaseSeeder extends Seeder
         Services::create(['name'=>'Manual','provider_id'=>'3']);
         Services::create(['name'=>'Discussion','provider_id'=>'2']);
         Services::create(['name'=>'Event','provider_id'=>'2']);
+        
+        state::create(['name'=>'Kedah']);
+        state::create(['name'=>'Johor']);
+        state::create(['name'=>'Kelantan']);
+        state::create(['name'=>'Kuala Lumpur']);
+        state::create(['name'=>'Melaka']);
+        state::create(['name'=>'Negeri Sembilan']);
+        state::create(['name'=>'Pahang']);
+        state::create(['name'=>'Perak']);
+        state::create(['name'=>'Perlis']);
+        state::create(['name'=>'Pulau Pinang']);
+        state::create(['name'=>'Sabah']);
+        state::create(['name'=>'Sarawak']);
+        state::create(['name'=>'Terengganu']);
+        state::create(['name'=>'Selangor']);
+        state::create(['name'=>'Putrajaya']);
+        state::create(['name'=>'Labuan']);
 
-        // Services::create(['provider_id'=>1]);
-        // Services::create(['provider_id'=>1]);
-        // Services::create(['provider_id'=>3]);
-        // Services::create(['provider_id'=>3]);
-        // Services::create(['provider_id'=>2]);
-        // Services::create(['provider_id'=>2]);
-
-        // DB::table('services')->insert(array (
-        //     0 => 
-        //       array (
-        //              'id' => 1,
-        //              'name' => 'Fomema Examination',
-        //              'provider_id' => 1,
-        //      ),
-        //     1 => 
-        //       array (
-        //              'id' => 2,
-        //              'name' => 'X-ray',
-        //              'provider_id' => 2,
-        //      ),
-        //  ));
-
-         
-    //   Services::truncate();
-
-    //   $services =  [
-    //       [
-    //         'name' => 'a',
-    //         'provider_id' => 1,
-    //       ],
-    //       [
-    //         'name' => 'b',
-    //         'provider_id' => 1,
-    //       ],
-    //       [
-    //         'name' => 'c',
-    //         'provider_id' => 3,
-    //       ],
-    //       [
-    //         'name' => 'd',
-    //         'provider_id' => 3,
-    //       ]
-    //     ];
-
-    //     Services::create($services);
+        provider_type::create(['name'=>'Sedan','provider_id'=>'3']);
+        provider_type::create(['name'=>'Hatchback','provider_id'=>'3']);
+        provider_type::create(['name'=>'Coupe','provider_id'=>'3']);
+        provider_type::create(['name'=>'Compact','provider_id'=>'3']);
+        provider_type::create(['name'=>'Conference room','provider_id'=>'2']);
+        provider_type::create(['name'=>'Auditorium','provider_id'=>'2']);
+        provider_type::create(['name'=>'U-Shape Style','provider_id'=>'2']);
+        provider_type::create(['name'=>'Meeting','provider_id'=>'2']);
+        provider_type::create(['name'=>'General Practitioner','provider_id'=>'1']);
+        provider_type::create(['name'=>'Clinical Haematology','provider_id'=>'1']);
+        provider_type::create(['name'=>'Endocrinology','provider_id'=>'1']);
+        provider_type::create(['name'=>'Family Medicine','provider_id'=>'1']);
     }
 }

@@ -38,13 +38,13 @@
                                             {{-- <form action=""  method="POST">
                                             @csrf --}}
                                             {{-- <button type="button" class="btn btn-danger mb-2" style="width: 100px;display:inline-block">Delete</button> --}}
-                                            <a href="" class="btn btn-danger" style="width: 100px;display:inline-block">Delete</a>
+                                            <a href="{{ route('allMeetingRoom.show',[$room->id]) }}" class="btn btn-danger mb-2" style="width: 100px;display:inline-block">Delete</a>
                                             {{-- </form> --}}
                                             {{-- <form action="{{ route('editRoom',[$room->id]) }}"  method="GET">
                                             @csrf
                                             <button type="button" id=edit class="btn btn-success" style="width: 100px;display:inline-block">Edit</button>
                                             </form> --}}
-                                            <a href="{{route('editRoom',[$room->id])}}" class="btn btn-success" style="width: 100px;display:inline-block">Edit</a>
+                                            <a href="{{route('allMeetingRoom.edit',[$room->id])}}" class="btn btn-success mb-2" style="width: 100px;display:inline-block">Edit</a>
                                         </td>
                                     </tr>
                                 @empty

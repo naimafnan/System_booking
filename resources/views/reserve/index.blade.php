@@ -34,61 +34,6 @@
 @endsection
 @push('script')
     <script>
-        // $(document).ready(function() {
-        //     $('#provider').on('change', function() {
-        //        var providerID = $(this).val();
-        //        if(providerID) {
-        //            $.ajax({
-        //                url: '/getProvider/'+providerID,
-        //                type: "GET",
-        //                data : {"_token":"{{ csrf_token() }}"},
-        //                dataType: "json",
-        //                success:function(data)
-        //                {
-        //                  if(data){
-        //                     $('#service').empty();
-        //                     $('#service').append('<option hidden>Service</option>'); 
-        //                     $.each(data, function(key, course){
-        //                         $('select[name="service"]').append('<option value="'+ key +'">' + course.service+ '</option>');
-        //                     });
-        //                 }else{
-        //                     $('#service').empty();
-        //                 }
-        //              }
-        //            });
-        //        }else{
-        //          $('#service').empty();
-        //        }
-        //     });
-        //     });
-        // $(document).ready(function() {
-        //     $('#service').on('change', function() {
-        //        var providerID = $(this).val();
-        //        if(providerID) {
-        //            $.ajax({
-        //                url: '/getCompany/'+providerID,
-        //                type: "GET",
-        //                data : {"_token":"{{ csrf_token() }}"},
-        //                dataType: "json",
-        //                success:function(data)
-        //                {
-        //                  if(data){
-        //                     $('#company').empty();
-        //                     $('#company').append('<option hidden>Company Name</option>'); 
-        //                     $.each(data, function(key, courses){
-        //                         $('select[name="company"]').append('<option value="'+ key +'">' + courses.company_name+ '</option>');
-        //                     });
-        //                 }else{
-        //                     $('#company').empty();
-        //                 }
-        //              }
-        //            });
-        //        }else{
-        //          $('#company').empty();
-        //        }
-        //     });
-        //     });
-
         $('#provider').change(function(){
             var providerID = $(this).val();  
             if(providerID){
@@ -123,8 +68,8 @@
                 if(res){
                     $("#company").empty();
             $("#company").append('<option>Select Company</option>');
-                    $.each(res,function(key,Company){
-                    $("#company").append('<option value="'+key+'">'+Company.company_name+'</option>');
+                    $.each(res,function(key,company){
+                    $("#company").append('<option value="'+key+'">'+company.company_name+'</option>');
                     });
                 
                 }else{
@@ -137,8 +82,5 @@
             }
                 
             });
-
-
-
     </script> 
 @endpush

@@ -41,8 +41,8 @@ class HomepageController extends Controller
         // return response()->json($services);
     }
     public function fetchCompany(Request $request){
-        $Company =provider_details::where('services_id',$request->service)->get();
-        return response()->json($Company);
+        $company =provider_details::where('services_id',$request->service)->get();
+        return response()->json($company);
     }
     /**
      * Show the form for creating a new resource.
@@ -202,7 +202,7 @@ class HomepageController extends Controller
             $providers=provider::all();
             $reserves=User::join("provider_details","provider_details.user_id","=","users.id")
             // ->where('role_id','=','2')
-            ->where('status','=','0')
+            ->where('provider_details.status','=','0')
             ->get(); 
             if($providers){
                 $reserves=User::join("provider_details","provider_details.user_id","=","users.id")
@@ -214,7 +214,7 @@ class HomepageController extends Controller
                 $reserves=User::join("provider_details","provider_details.user_id","=","users.id")
                 ->Where("users.name","LIKE","%".$keyword."%")
                 ->orWhere("provider_details.company_name","LIKE","%".$keyword."%")
-                ->orWhere("provider_details.provider_type","LIKE","%".$keyword."%")
+                ->orWhere("provider_details.provider_type_id","LIKE","%".$keyword."%")
                 ->get();
             }
             if($company){
@@ -223,7 +223,7 @@ class HomepageController extends Controller
                 ->get();
             }
             if($services){
-                $reserves=Services::join("provider_details","provider_details.services_id","=","services.id")
+                $reserves=User::join("provider_details","provider_details.user_id","=","users.id")
                 ->where('provider_details.services_id','LIKE','%'.$services.'%')->get();
             }
             if($address){
@@ -233,29 +233,11 @@ class HomepageController extends Controller
                 ->orWhere("users.address3","LIKE","%".$address."%")
                 ->orWhere("users.address4","LIKE","%".$address."%")
                 ->orWhere("users.postcode","LIKE","%".$address."%")
-                ->orWhere("users.state","LIKE","%".$address."%")
+                // ->orWhere("users.states_id","LIKE","%".$address."%")
                 ->get();
             }
             return view('reserve.search',compact('reserves','providers'));
         }
-        // public function myBooking(){
-        //     $appointments = Appointment::latest()->where('user_id',auth()->user()->id)->get();
-        //     // $appointments=Appointment::all();
-        //     return view('booking.bookingDetails',compact('appointments'));
-        // }
-        // public function BookingDetails($appointmentsId){
-        //     $appointments=Appointment::where('id',$appointmentsId)->first();
-        //     $appointments_id=$appointmentsId;
-        //     return view('booking.index',compact('appointments','appointments_id'));
-        // }
-
-        // public function checkBookingTimeInterval()
-        // {
-        //     return Appointment::orderby('id','desc')
-        //         ->where('user_id',auth()->user()->id)
-        //         ->whereDate('created_at',date('Y-m-d'))
-        //         ->exists();
-        // }
 
         public function getTimeCar(Request $request) {
             $providers=provider_details::where('id',$request->providerDetails_id)->first();

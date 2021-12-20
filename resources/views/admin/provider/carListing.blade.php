@@ -31,19 +31,12 @@
                                     <tr>
                                         <td><img src="\img\user1.png" class="table-user-thumb" alt=""></td>
                                         <td>{{ $car->name }}</td>
-                                        <td>{{ $car->providerDetails->provider_type }}</td>
+                                        <td>{{ $car->providerDetails->provider_type_id }}</td>
                                         <td>{{ $car->providerDetails->company_name }}</td>
                                         <td>{{ $car->providerDetails->level }}</td>
                                         <td>
-                                            <form action=""  method="POST">
-                                                @csrf
-                                                <button type="button" class="btn btn-danger mb-2" style="width: 100px;display:inline-block">Delete</button>
-                                                </form>
-                                                
-                                                <form action=""  method="POST">
-                                                @csrf
-                                                <button type="button" class="btn btn-success" style="width: 100px;display:inline-block">Edit</button>
-                                            </form>
+                                            <a href="{{ route('allCar.show',[$car->id]) }}" class="btn btn-danger mb-2" style="width: 100px;display:inline-block">Delete</a>
+                                            <a href="{{route('allCar.edit',[$car->id])}}" class="btn btn-success mb-2" style="width: 100px;display:inline-block">Edit</a>
                                         </td>
                                     </tr>
                                 @empty

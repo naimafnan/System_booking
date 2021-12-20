@@ -85,10 +85,17 @@ Route::resource('/create-Car',ProviderController::class);
 Route::post('/create-Car',[ProviderController::class,'store'])->name('createCar');
 
 //admin create meeting room provider
-Route::get('/meetingRoom-edit/{$id}',[ProviderController::class,'edit'])->name('editRoom');
+Route::get('/meetingRoom-edit/{$id}',[ProviderController::class,'roomEdit']);
 Route::get('/create-MeetingRoom',[ProviderController::class,'create2'])->name('MeetingRoom');
 Route::post('/create-MeetingRoom',[ProviderController::class,'store2'])->name('createMeetingRoom');
 
+
 //listing all car
 Route::resource('/allCar',listAllCarController::class);
+Route::post('/allCar',listAllCarController::class,'update');
+
+//listing Meeting room
 Route::resource('/allMeetingRoom',listAllRoomController::class);
+Route::post('/allMeetingRoom',[listAllRoomController::class,'update']);
+// Route::post('/allMeetingRoom/{$id}',[listAllRoomController::class, 'delete']);
+// Route::put('/MeetingRoom/{id}',[listAllRoomController::class,'update']);

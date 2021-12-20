@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\provider_details;
+use App\Models\state;
+use App\Models\provider_type;
+use App\Models\Services;
 use NunoMaduro\Collision\Contracts\Provider;
 
 class ProviderController extends Controller
@@ -26,11 +29,17 @@ class ProviderController extends Controller
      */
     public function create()
     {
-        return view('admin.provider.create');
+        $states=state::all();
+        $services=Services::where('provider_id',3)->get();
+        $provider_types=provider_type::where('provider_id',3)->get();
+        return view('admin.provider.create',compact('states','provider_types','services'));
     }
     public function create2()
     {
-        return view('admin.provider.createMeetingRoom');
+        $states=state::all();
+        $services=Services::where('provider_id',2)->get();
+        $provider_types=provider_type::where('provider_id',2)->get();
+        return view('admin.provider.createMeetingRoom',compact('states','provider_types','services'));
     }
 
     /**
@@ -41,24 +50,6 @@ class ProviderController extends Controller
      */
     public function store(Request $request)
     {
-        // $users=User::create([
-        //     'name'=>$request->input('name'),
-        //     'role_id'=>4,
-        //     'address1'=>$request->input('add1'),
-        //     'address2'=>$request->input('add2'),
-        //     'address3'=>$request->input('add3'),
-        //     'address4'=>$request->input('add4'),
-        //     'postcode'=>$request->input('postcode'),
-        //     'state'=>$request->input('state')
-        // ]);
-        // $details=provider_details::create([
-        //     'user_id'=>$users->id,
-        //     'provider_id'=>3,
-        //     'provider_type'=>$request->input('provider_type'),
-        //     'company_name'=>$request->input('company_name'),
-        //     'services_id'=>$request->input('service'),
-        //     'level'=>$request->input('level')
-        // ]);
         $users = new User();
         $users-> name = $request->input('name');
         $users-> role_id = 4;
@@ -67,13 +58,13 @@ class ProviderController extends Controller
         $users-> address3 = $request->input('add3');
         $users-> address4 = $request->input('add4');
         $users-> postcode = $request->input('postcode');
-        $users-> state = $request->input('state');
+        $users-> states_id = $request->input('state');
         $users-> save();
 
         $providerDetails = new provider_details();
         $providerDetails->user_id = $users->id;
         $providerDetails->provider_id=3;
-        $providerDetails->provider_type=$request->input('provider_type');
+        $providerDetails->provider_type_id=$request->input('provider_type');
         $providerDetails->company_name=$request->input('company_name');
         $providerDetails->services_id=$request->input('service');
         $providerDetails->level=$request->input('level');
@@ -93,13 +84,13 @@ class ProviderController extends Controller
         $users-> address3 = $request->input('address3');
         $users-> address4 = $request->input('address4');
         $users-> postcode = $request->input('postcode');
-        $users-> state = $request->input('state');
+        $users-> states_id = $request->input('state');
         $users-> save();
 
         $providerDetails = new provider_details();
         $providerDetails->user_id = $users->id;
         $providerDetails->provider_id=2;
-        $providerDetails->provider_type=$request->input('provider_type');
+        $providerDetails->provider_type_id=$request->input('provider_type');
         $providerDetails->company_name=$request->input('company_name');
         $providerDetails->services_id=$request->input('service');
         $providerDetails->level=$request->input('level');
@@ -118,8 +109,6 @@ class ProviderController extends Controller
      */
     public function show($id)
     {
-        // $users=User::find($id);
-        // return view('admin.provider.edit',compact('users'));
     }
 
     /**
@@ -129,9 +118,7 @@ class ProviderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        $users=User::find($id);
-        return view('admin.provider.edit',compact('users'));
+    {;
     }
 
     /**
@@ -143,7 +130,26 @@ class ProviderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user_id=$request->input('user_id');
+        $user = User::find($user_id);
+        $user->name=$request->name;
+        $user->address1=$request->address1;
+        $user->address2=$request->address2;
+        $user->address3=$request->address3;
+        $user->address4=$request->address4;
+        $user->postcode=$request->postcode;
+        $user->state=$request->state;
+        $user->save();
+
+        $provider = provider_details::where('user_id',$user_id)->first();
+        $provider->company_name=$request->company_name ?? null;
+        $provider->provider_type=$request->provider_type ?? null;
+        $provider->services_id=$request->service ?? null;
+        $provider->level=$request->level ?? null;
+        $provider->save();
+
+        // $reserves->update();
+        return redirect()->back()->with('success', 'Meeting Room Updated');
     }
 
     /**
@@ -154,6 +160,6 @@ class ProviderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }

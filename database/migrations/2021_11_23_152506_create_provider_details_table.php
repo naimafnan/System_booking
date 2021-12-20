@@ -22,7 +22,7 @@ class CreateProviderDetailsTable extends Migration
             ->onDelete('cascade');
             $table->integer('provider_id')->nullable();
             $table->integer('services_id')->nullable();
-            $table->string('provider_type')->nullable();
+            $table->integer('provider_type_id')->nullable();
             $table->string('company_name')->nullable();
             $table->string('level')->nullable();
             $table->time('start_time')->nullable();

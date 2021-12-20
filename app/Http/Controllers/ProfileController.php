@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Models\User;
+use App\Models\state;
 use App\Models\provider_details;
+use App\Models\provider_type;
+use App\Models\Services;
+
 class ProfileController extends Controller
 {
     /**
@@ -16,7 +20,10 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('User.profile');
+        $provider_types=provider_type::where('provider_id',1)->get();
+        $states=state::all();
+        $services=Services::where('provider_id',1)->get();
+        return view('User.profile',compact('states','provider_types','services'));
     }
 
     /**
@@ -83,7 +90,7 @@ class ProfileController extends Controller
         $user->address3=$request->address3;
         $user->address4=$request->address4;
         $user->postcode=$request->postcode;
-        $user->state=$request->state;
+        $user->states_id=$request->state;
         $user->phone_number=$request->phone_number;
    
         //image
@@ -101,14 +108,14 @@ class ProfileController extends Controller
         }
         // $user->push();
         $user->save();
-
+        if ($user->role_id == 1){
         $provider = provider_details::where('user_id',$user_id)->first();
         $provider->company_name=$request->company_name ?? null;
-        $provider->provider_type=$request->provider_type ?? null;
+        $provider->provider_type_id=$request->provider_type ?? null;
         $provider->services_id=$request->service ?? null;
         $provider->level=$request->level ?? null;
         $provider->save();
-
+    }
         // $reserves->update();
         return redirect()->back()->with('success', 'Profile Updated');
     }
