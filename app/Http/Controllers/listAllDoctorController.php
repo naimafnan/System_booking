@@ -101,8 +101,8 @@ class listAllDoctorController extends Controller
     {
         $users=User::find($id);
         $states=state::all();
-        $services=Services::where('provider_id',3)->get();
-        $provider_types=provider_type::where('provider_id',3)->get();
+        $services=Services::where('provider_id',1)->get();
+        $provider_types=provider_type::where('provider_id',1)->get();
         return view('admin.provider.edit',compact('users','states','services','provider_types'));
     }
 

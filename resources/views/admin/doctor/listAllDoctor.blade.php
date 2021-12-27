@@ -13,8 +13,8 @@
                                 <tr>
                                     <th class="nosort">Avatar</th>
                                     <th>Name</th>
-                                    <th>Company</th>
-                                    <th>Seater</th>
+                                    <th>Clinic</th>
+                                    <th>Level Education</th>
                                     <th>Action</th>
                                     <th class="nosort">&nbsp;</th> 
                                 </tr>
