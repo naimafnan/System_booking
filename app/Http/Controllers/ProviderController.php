@@ -8,6 +8,7 @@ use App\Models\provider_details;
 use App\Models\state;
 use App\Models\provider_type;
 use App\Models\Services;
+use Illuminate\Support\Carbon;
 use NunoMaduro\Collision\Contracts\Provider;
 
 class ProviderController extends Controller
@@ -52,7 +53,7 @@ class ProviderController extends Controller
     {
         $users = new User();
         $users-> name = $request->input('name');
-        $users-> role_id = 4;
+        $users-> role_id = 5;
         $users-> address1 = $request->input('add1');
         $users-> address2 =$request->input('add2');
         $users-> address3 = $request->input('add3');
@@ -61,6 +62,10 @@ class ProviderController extends Controller
         $users-> states_id = $request->input('state');
         $users-> save();
 
+        $start_time=Carbon::parse('09:00:00')->format('H:i');
+        $end_time=Carbon::parse('18:00:00')->format('H:i');
+        $start_rest_time=Carbon::parse('13:00:00')->format('H:i');
+        $end_rest_time=Carbon::parse('14:00:00')->format('H:i');
         $providerDetails = new provider_details();
         $providerDetails->user_id = $users->id;
         $providerDetails->provider_id=3;
@@ -68,6 +73,10 @@ class ProviderController extends Controller
         $providerDetails->company_name=$request->input('company_name');
         $providerDetails->services_id=$request->input('service');
         $providerDetails->level=$request->input('level');
+        $providerDetails->start_time=$start_time;
+        $providerDetails->end_time=$end_time;
+        $providerDetails->start_rest_time=$start_rest_time;
+        $providerDetails->end_rest_time=$end_rest_time;
         $providerDetails->save();
         
 
@@ -78,7 +87,7 @@ class ProviderController extends Controller
     {
         $users = new User();
         $users-> name = $request->input('name');
-        $users-> role_id = 5;
+        $users-> role_id = 6;
         $users-> address1 = $request->input('address1');
         $users-> address2 =$request->input('address2');
         $users-> address3 = $request->input('address3');
@@ -130,26 +139,6 @@ class ProviderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user_id=$request->input('user_id');
-        $user = User::find($user_id);
-        $user->name=$request->name;
-        $user->address1=$request->address1;
-        $user->address2=$request->address2;
-        $user->address3=$request->address3;
-        $user->address4=$request->address4;
-        $user->postcode=$request->postcode;
-        $user->state=$request->state;
-        $user->save();
-
-        $provider = provider_details::where('user_id',$user_id)->first();
-        $provider->company_name=$request->company_name ?? null;
-        $provider->provider_type=$request->provider_type ?? null;
-        $provider->services_id=$request->service ?? null;
-        $provider->level=$request->level ?? null;
-        $provider->save();
-
-        // $reserves->update();
-        return redirect()->back()->with('success', 'Meeting Room Updated');
     }
 
     /**

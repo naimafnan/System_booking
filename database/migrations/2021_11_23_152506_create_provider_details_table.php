@@ -29,7 +29,7 @@ class CreateProviderDetailsTable extends Migration
             $table->time('end_time')->nullable();
             $table->time('start_rest_time')->nullable();
             $table->time('end_rest_time')->nullable();
-            $table->integer('slot_duration')->nullable();
+            $table->integer('slot_duration')->default(60);
             $table->integer('status')->default(0);
             $table->string('working_day')->nullable();
             $table->timestamps();

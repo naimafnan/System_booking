@@ -102,6 +102,62 @@
                     </div>
                 </div>
             @endif
+            @if (Auth::user()->role->name=="superadmin")
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="widget">
+                        <div class="widget-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="state">
+                                    <h6>Doctors</h6>
+                                    <h2>{{app\Models\User::where('role_id',1)->count()}}</h2>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-user-md"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="progress progress-sm">
+                            <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="widget">
+                        <div class="widget-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="state">
+                                    <h6>Cars</h6>
+                                    <h2>{{app\Models\User::where('role_id',5)->count()}}</h2>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-car"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="progress progress-sm">
+                            <div class="progress-bar bg-grey" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="widget">
+                        <div class="widget-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="state">
+                                    <h6>Meeting Rooms</h6>
+                                    <h2>{{app\Models\User::where('role_id',6)->count()}}</h2>
+                                </div>
+                                <div class="icon">
+                                    <i class='fas fa-chalkboard-teacher'></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="progress progress-sm">
+                            <div class="progress-bar bg-green" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;"></div>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 @endsection

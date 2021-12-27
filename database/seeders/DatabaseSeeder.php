@@ -27,12 +27,19 @@ class DatabaseSeeder extends Seeder
         Role::create(['name'=>'doctor']);
         Role::create(['name'=>'admin']);
         Role::create(['name'=>'customer']);
+        Role::create(['name'=>'superadmin']);
 
         DB::table('users')->insert([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'role_id' => '2',
             'password' => Hash::make('admin@gmail.com'),
+          ]);
+        DB::table('users')->insert([
+            'name' => 'superadmin',
+            'email' => 'superadmin@gmail.com',
+            'role_id' => '4',
+            'password' => Hash::make('superadmin@gmail.com'),
           ]);
 
         Services::create(['name'=>'Fomema Examination','provider_id'=>'1']);

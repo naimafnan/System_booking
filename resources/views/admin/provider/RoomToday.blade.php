@@ -4,7 +4,7 @@
         <div class="row">
             <div class="card">
                 <div class="card-header">
-                    List Car
+                    List Meeting Room
                 </div>
                 <div class="card-body">
                     <div class="table-responsive-sm">
@@ -13,9 +13,11 @@
                                 <tr>
                                     <th class="nosort">Avatar</th>
                                     <th>Name</th>
+                                    <th>Type of room</th>
                                     <th>Company</th>
-                                    <th>Seater</th>
-                                    <th>Action</th>
+                                    <th>Level</th>
+                                    {{-- <th>Status</th> --}}
+                                    {{-- <th class="nosort">Actions</th> --}}
                                     <th class="nosort">&nbsp;</th> 
                                 </tr>
                             </thead>
@@ -25,19 +27,20 @@
                                         {{ Session::get('msg') }}
                                     </div>
                                 @endif
-                                @forelse ($cars as $car)
+                                @forelse ($rooms as $room)
                                     <tr>
                                         <td><img src="\img\user1.png" class="table-user-thumb" alt=""></td>
-                                        <td>{{ $car->name }}</td>
-                                        <td>{{ $car->providerDetails->company_name }}</td>
-                                        <td>{{ $car->providerDetails->level }}</td>
-                                        <td>
-                                            <a href="{{ route('allCar.show',[$car->id]) }}" class="btn btn-danger mb-2" style="width: 100px;display:inline-block">Delete</a>
-                                            <a href="{{route('allCar.edit',[$car->id])}}" class="btn btn-success mb-2" style="width: 100px;display:inline-block">Edit</a>
-                                        </td>
+                                        <td>{{ $room->user->name }}</td>
+                                        <td>{{ $room->providerDetailsApp->provider_type_id }}</td>
+                                        <td>{{ $room->providerDetailsApp->company_name }}</td>
+                                        <td>{{ $room->providerDetailsApp->level }}</td>
+                                        {{-- <td>
+                                            <a href="{{ route('allMeetingRoom.show',[$room->id]) }}" class="btn btn-danger mb-2" style="width: 100px;display:inline-block">Delete</a>
+                                            <a href="{{route('allMeetingRoom.edit',[$room->id])}}" class="btn btn-success mb-2" style="width: 100px;display:inline-block">Edit</a>
+                                        </td> --}}
                                     </tr>
                                 @empty
-                                    <h5>You have no car .</h5>
+                                    <h5>You have no Meeting Room.</h5>
                                 @endforelse
                             </tbody>
                         </table>

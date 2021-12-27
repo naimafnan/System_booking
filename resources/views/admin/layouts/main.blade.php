@@ -112,12 +112,38 @@
                                 <div class="nav-item has-sub">
                                     <a href="#"><i class="fas fa-car"></i><span>Car</span></a>
                                     <div class="submenu-content">
+                                      <a href="{{ route('today.index') }}" class="menu-item">Today</a>
+                                      <a href="{{ route('allCar.index') }}" class="menu-item">All</a>
+                                    </div>
+                                </div>
+                                <div class="nav-item has-sub">
+                                    <a href="#"><i class='fas fa-chalkboard-teacher'></i><span>Meeting Room</span></a>
+                                    <div class="submenu-content">
+                                        <a href="{{ route('today-room.index') }}" class="menu-item">Today</a>
+                                        <a href="{{ route('allMeetingRoom.index') }}" class="menu-item">All</a>
+                                    </div>
+                                </div>
+                              @endif
+                              @if (auth()->check()&& auth()->user()->role->name === 'superadmin')
+                                <div class="nav-lavel">Provider</div>
+                                <div class="nav-item has-sub">
+                                    <a href="#"><i class="fas fa-user-md"></i><span>Doctor</span></a>
+                                    <div class="submenu-content">
+                                        <a href="" class="menu-item">Create</a>
+                                        <a href="{{ route('alldoctor.index') }}" class="menu-item">All</a>
+                                    </div>
+                                </div>
+                                <div class="nav-item has-sub">
+                                    <a href="#."><i class="fas fa-car"></i><span>Car</span></a>
+                                    <div class="submenu-content">
+                                        <a href="{{ route('create-Car.create') }}" class="menu-item">Create</a>
                                         <a href="{{ route('allCar.index') }}" class="menu-item">All</a>
                                     </div>
                                 </div>
                                 <div class="nav-item has-sub">
                                     <a href="#"><i class='fas fa-chalkboard-teacher'></i><span>Meeting Room</span></a>
                                     <div class="submenu-content">
+                                        <a href="{{ route('MeetingRoom') }}" class="menu-item">Create</a>
                                         <a href="{{ route('allMeetingRoom.index') }}" class="menu-item">All</a>
                                     </div>
                                 </div>

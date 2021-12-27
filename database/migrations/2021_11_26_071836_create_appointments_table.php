@@ -22,6 +22,7 @@ class CreateAppointmentsTable extends Migration
             $table->time('end_time')->nullable();
             $table->date('start_date');
             $table->date('end_date')->nullable();
+            $table->integer('duration')->nullable();
             $table->integer('status')->default(0);
             $table->string('remarks')->nullable();
             $table->timestamps();

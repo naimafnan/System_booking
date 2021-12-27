@@ -1,5 +1,5 @@
 
-    @extends(\Auth::user()->role->id==1 || \Auth::user()->role->id==2 ?'admin.layouts.main':'layouts.app')
+    @extends(\Auth::user()->role->id==1 || \Auth::user()->role->id==4 || \Auth::user()->role->id==2 ?'admin.layouts.main':'layouts.app')
 
     @section('content')
         <div class="container">

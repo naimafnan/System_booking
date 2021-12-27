@@ -20,10 +20,6 @@
             </select>
             <select class="form-control mb-2 mr-2" name="company" id="company">
                 <option value="">Company Name</option>
-                @foreach ($reserves as $reserve )
-                    <option value="{{ $reserve->company_name }}">{{ $reserve->company_name }}</option> 
-                @endforeach
-                
             </select>
             {{-- <span>&nbsp;</span> --}}
             <input type="text" class="form-control mb-2 mr-2" name="add" placeholder="Enter Location" id="add" >
@@ -62,7 +58,7 @@
                     </div>
                 </div>
             @empty
-            <h4>No doctors available yet</h4>
+            <h4>No providers available yet</h4>
             @endforelse
         </div>
     {{-- </div> --}}

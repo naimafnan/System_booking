@@ -12,6 +12,10 @@ use App\Http\Controllers\ListCustomerExpiredController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\listAllCarController;
 use App\Http\Controllers\listAllRoomController;
+use App\Http\Controllers\TodayCarController;
+use App\Http\Controllers\TodayRoomController;
+use App\Http\Controllers\listAllDoctorController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,7 +36,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //route for admin & doctor
 Route::get('/dashboard',[\App\Http\Controllers\dashboardController::class,'index']);
 
-//display list
+//display list 
 Route::resource('/', HomepageController::class);
 Route::get('/', [HomepageController::class,'index']);
 Route::get('/search', [HomepageController::class,'search']);
@@ -92,10 +96,17 @@ Route::post('/create-MeetingRoom',[ProviderController::class,'store2'])->name('c
 
 //listing all car
 Route::resource('/allCar',listAllCarController::class);
-Route::post('/allCar',listAllCarController::class,'update');
+Route::post('/allCar',[listAllCarController::class,'update']);
 
 //listing Meeting room
 Route::resource('/allMeetingRoom',listAllRoomController::class);
 Route::post('/allMeetingRoom',[listAllRoomController::class,'update']);
-// Route::post('/allMeetingRoom/{$id}',[listAllRoomController::class, 'delete']);
-// Route::put('/MeetingRoom/{id}',[listAllRoomController::class,'update']);
+
+//listing car today
+Route::resource('/today',TodayCarController::class);
+
+//listing meeting room today
+Route::resource('/today-room', TodayRoomController::class);
+
+Route::resource('/alldoctor',listAllDoctorController::class);
+

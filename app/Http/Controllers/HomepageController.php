@@ -93,6 +93,7 @@ class HomepageController extends Controller
             'providerDetails_id'=>$request->providerDetails_id,
             'start_time'=>$time,
             'end_time'=>$time2,
+            'duration'=>$request->quantity,
             'start_date'=>$date,
             'end_date'=>$date2,
             'status'=>0,
@@ -138,6 +139,25 @@ class HomepageController extends Controller
         
         // Mail::to(request()->get('doc_email') )->send(new \App\Mail\NotificationDoctor($notificationDoctor));
         
+    }
+    public function carBooking(Request $request){
+        $date=Carbon::parse($request->datepicker3)->format('Y-m-d');
+        $time=Carbon::parse($request->time3)->format('H:i:s'); 
+        $duration=$request->quantity;
+        $remarks=$request->reasons;
+        Appointment::create([
+            'user_id'=>auth()->user()->id,
+            'provider_id'=>$request->provider_id,
+            'providerDetails_id'=>$request->providerDetails_id,
+            'start_time'=>$time,
+            'end_time'=>null,
+            'duration'=>$request->quantity,
+            'start_date'=>$date,
+            // 'end_date'=>$date2,
+            'status'=>0,
+            'remarks'=>$remarks,
+        ]);
+        return redirect()->back()->with('msg','Your appointment was booked');
     }
 
     /**
@@ -194,22 +214,19 @@ class HomepageController extends Controller
             $company=$request->get('company');
             $address=$request->get('add');
             $services=$request->get('service');
-            $providers=$request->get('provider');
-            // dd($providers);
-            //get all data from db
-            // $providers=provider::join("provider_details","provider_details.provider_id","=","providers.id")
-            // ->get();\
+            $providers=$request->input('provider');
+             
             $providers=provider::all();
             $reserves=User::join("provider_details","provider_details.user_id","=","users.id")
-            // ->where('role_id','=','2')
             ->where('provider_details.status','=','0')
             ->get(); 
-            if($providers){
-                $reserves=User::join("provider_details","provider_details.user_id","=","users.id")
-                ->Where("provider_details.provider_id","LIKE","%".$providers."%")
-                ->get();
+            // if($providers){
+            //     $reserves=User::join("provider_details","provider_details.user_id","=","users.id")
+            //     ->Where("provider_details.provider_id","LIKE","%".$providers."%")
+            //     ->Where("users.name","LIKE","%".$providers."%")
+            //     ->get();
                 
-            }
+            // }
             if($keyword){
                 $reserves=User::join("provider_details","provider_details.user_id","=","users.id")
                 ->Where("users.name","LIKE","%".$keyword."%")
@@ -217,73 +234,131 @@ class HomepageController extends Controller
                 ->orWhere("provider_details.provider_type_id","LIKE","%".$keyword."%")
                 ->get();
             }
-            if($company){
-                $reserves=User::join("provider_details","provider_details.user_id","=","users.id")
-                ->where('provider_details.company_name','LIKE','%'.$company.'%')
-                ->get();
-            }
-            if($services){
-                $reserves=User::join("provider_details","provider_details.user_id","=","users.id")
-                ->where('provider_details.services_id','LIKE','%'.$services.'%')->get();
-            }
-            if($address){
-                $reserves=User::join("provider_details","provider_details.user_id","=","users.id")
-                ->where('users.address1','LIKE','%'.$address.'%')
-                ->orWhere("users.address2","LIKE","%".$address."%")
-                ->orWhere("users.address3","LIKE","%".$address."%")
-                ->orWhere("users.address4","LIKE","%".$address."%")
-                ->orWhere("users.postcode","LIKE","%".$address."%")
-                // ->orWhere("users.states_id","LIKE","%".$address."%")
-                ->get();
-            }
+            // if($company){
+            //     $reserves=User::join("provider_details","provider_details.user_id","=","users.id")
+            //     ->where('provider_details.company_name','LIKE','%'.$company.'%')
+            //     ->get();
+            // }
+            // if($services){
+            //     $reserves=User::join("provider_details","provider_details.user_id","=","users.id")
+            //     ->where('provider_details.services_id','LIKE','%'.$services.'%')->get();
+            // }
+            // if($address){
+            //     $reserves=User::join("provider_details","provider_details.user_id","=","users.id")
+            //     ->where('users.address1','LIKE','%'.$address.'%')
+            //     ->orWhere("users.address2","LIKE","%".$address."%")
+            //     ->orWhere("users.address3","LIKE","%".$address."%")
+            //     ->orWhere("users.address4","LIKE","%".$address."%")
+            //     ->orWhere("users.postcode","LIKE","%".$address."%")
+            //     ->get();
+            // }
             return view('reserve.search',compact('reserves','providers'));
         }
 
-        public function getTimeCar(Request $request) {
-            $providers=provider_details::where('id',$request->providerDetails_id)->first();
+        public function getTimeCar(Request $request) { 
 
+            $providers=provider_details::where('id',$request->providerDetails_id)->first();
+            $appointment=Appointment::where('providerDetails_id',$request->providerDetails_id)
+            ->where('start_date',$request->input('datepicker'))
+            ->first();
+            if($appointment == null){
+                
+                //start_time from appointment
+            
             $sometimeOut=$providers->slot_duration;
             $start=$providers->start_time;
             $startRest=$providers->start_rest_time;
             $endRest=$providers->end_rest_time; 
-            $end=$providers->end_time;
-            // strtotime('10:09') + 60*60
-            //$time = date('H:i', $timestamp);
-            $totalHours=strtotime($start)+60*60;
-            $time=date('H:i',$totalHours);
+            $end=$providers->end_time; 
+
+            //sampai jam berapa dia guna 
             $data2=[];
             $timeSlot = $this->getTimeSlot($sometimeOut, $start, $startRest);
             $timeSlot2 = $this->getTimeSlot2($sometimeOut, $endRest, $end);
-            $timeSlot3= $this->getTimeSlotCar($sometimeOut,$start,$totalHours);
-
             $data1=[];
             $data3=[];
-
-
-
             foreach($timeSlot as $timeSlots){
                 $arr=array($timeSlots);
                 array_push($data1,$arr);
+                // dd($timeSlots);
             }
 
             foreach($timeSlot2 as $timeSlot2s){
                 $arr3=array($timeSlot2s);
                 array_push($data3,$arr3);
             }
-            foreach($timeSlot3 as $timeSlot3s){
-                $arr2=array($timeSlot3s);
-                array_push($data2,$arr2);
-            }
-
-            $test1 = array_column($data1, '0');
-                $test2 = array_column($data2, '0');
+            // foreach($time as $times){
+            //     $arr2=array(Carbon::parse($times->start_time)->format('H:i'));
+            //     // dd($arr2);
+            //     array_push($data2,$arr2);
+            //     // dd($data2);
+            // }
+                $test1 = array_column($data1, '0');
                 $test3 = array_column($data3, '0');
                 $result=array_merge($test1,$test3);
                 // dd($test2);
-                $combined = array_diff($result,$test2);
-
+                // dd($combined);
                 // if()
-            return response()->json($combined);
+            return response()->json($result);
+            
+            }else{
+                //start_time from appointment
+            $start2=$appointment->start_time;
+            
+            $sometimeOut=$providers->slot_duration;
+            $start=$providers->start_time;
+            $startRest=$providers->start_rest_time;
+            $endRest=$providers->end_rest_time; 
+            $end=$providers->end_time;
+            $duration=$appointment->duration;
+            $masa = date("Y-m-d H:i:s", strtotime($start2) + $duration * 60 * 60);
+            // dd($masa);
+
+            //sampai jam berapa dia guna
+            // $totalHours=strtotime($start2)+$duration;
+            // dd($timeInMinutes);
+            // $time=date('H:i',$totalHours);
+            // dd($time);
+            $data2=[];
+            $timeSlot = $this->getTimeSlot($sometimeOut, $start, $startRest);
+            $timeSlot2 = $this->getTimeSlot2($sometimeOut, $endRest, $end);
+            $timeSlot3= $this->getTimeSlotCar($sometimeOut,$start2,$masa);
+            // dd($timeSlot);
+            $data1=[];
+            $data3=[];
+
+
+            //morning slot
+            foreach($timeSlot as $timeSlots){
+               // $arr=array($timeSlots);
+                array_push($data1,$timeSlots);
+              //  dd($data1);
+            }
+            // dd($data1);
+            //evening slot
+            foreach($timeSlot2 as $timeSlot2s){
+                array_push($data3,$timeSlot2s);
+            }
+            // dd($data3);
+            //disable slot
+            foreach($timeSlot3 as $timeSlot3s){
+                array_push($data2,$timeSlot3s);
+                
+            }
+            // dd($data2);
+
+
+                $test1 = array_column($data1, '0');
+                $test2 = array_column($data2, '0');
+                $test3 = array_column($data3, '0');
+                $result=array_merge($data1,$data3);
+                // dd($data2);
+                $combined2 = array_diff($result,$data2);
+                // dd($combined2);
+                // if()
+            return response()->json($combined2);
+            }
+            
         }
         public function getTime(Request $request) {
 
@@ -295,7 +370,7 @@ class HomepageController extends Controller
             $startRest=$providers->start_rest_time;
             $endRest=$providers->end_rest_time; 
             $end=$providers->end_time;
-
+            // dd($request->datepicker);
             $time = Appointment::select('start_time','end_time') 
             ->when($request->datepicker !=null,function($query) use ($request){
                 $query->where('provider_id',$request->provider_id)
@@ -319,6 +394,7 @@ class HomepageController extends Controller
             foreach($timeSlot as $timeSlots){
                 $arr=array($timeSlots);
                 array_push($data1,$arr);
+                // dd($timeSlots);
             }
 
             foreach($timeSlot2 as $timeSlot2s){

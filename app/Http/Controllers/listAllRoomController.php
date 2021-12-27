@@ -17,7 +17,7 @@ class listAllRoomController extends Controller
      */
     public function index()
     {
-        $rooms=User::where('role_id',5)->get();
+        $rooms=User::where('role_id',6)->get();
         return view('admin.provider.RoomListing',compact('rooms'));
     }
 
@@ -94,6 +94,11 @@ class listAllRoomController extends Controller
         $provider->provider_type_id=$request->provider_type ?? null;
         $provider->services_id=$request->service ?? null;
         $provider->level=$request->level ?? null;
+        $provider->start_time=$request->Startime ?? null;
+        $provider->end_time=$request->EndTime ?? null;
+        $provider->start_rest_time=$request->startRestTime ?? null;
+        $provider->end_rest_time=$request->endRestTime ?? null;
+        $provider->slot_duration=$request->TimeSlots ?? null;
         $provider->save();
 
         // $reserves->update();

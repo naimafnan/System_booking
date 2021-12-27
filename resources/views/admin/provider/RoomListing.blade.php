@@ -13,11 +13,9 @@
                                 <tr>
                                     <th class="nosort">Avatar</th>
                                     <th>Name</th>
-                                    <th>Type of room</th>
                                     <th>Company</th>
                                     <th>Level</th>
-                                    <th>Status</th>
-                                    {{-- <th class="nosort">Actions</th> --}}
+                                    <th>Action</th>
                                     <th class="nosort">&nbsp;</th> 
                                 </tr>
                             </thead>
@@ -31,19 +29,10 @@
                                     <tr>
                                         <td><img src="\img\user1.png" class="table-user-thumb" alt=""></td>
                                         <td>{{ $room->name }}</td>
-                                        <td>{{ $room->providerDetails->provider_type }}</td>
                                         <td>{{ $room->providerDetails->company_name }}</td>
                                         <td>{{ $room->providerDetails->level }}</td>
                                         <td>
-                                            {{-- <form action=""  method="POST">
-                                            @csrf --}}
-                                            {{-- <button type="button" class="btn btn-danger mb-2" style="width: 100px;display:inline-block">Delete</button> --}}
                                             <a href="{{ route('allMeetingRoom.show',[$room->id]) }}" class="btn btn-danger mb-2" style="width: 100px;display:inline-block">Delete</a>
-                                            {{-- </form> --}}
-                                            {{-- <form action="{{ route('editRoom',[$room->id]) }}"  method="GET">
-                                            @csrf
-                                            <button type="button" id=edit class="btn btn-success" style="width: 100px;display:inline-block">Edit</button>
-                                            </form> --}}
                                             <a href="{{route('allMeetingRoom.edit',[$room->id])}}" class="btn btn-success mb-2" style="width: 100px;display:inline-block">Edit</a>
                                         </td>
                                     </tr>

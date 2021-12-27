@@ -9,7 +9,7 @@
                     <div class="card-header bg-info">Booking Details</div>
                     <div class="card-body">
                         
-                            <h6 class="card-title text-black-50">Doctor's Name</h6>
+                            <h6 class="card-title text-black-50">Provider's Name</h6>
                             <h5 class="card-text">{{ $appointments->appUser->name }}</h5>
                             <h6 class="card-title text-black-50">Time</h6>
                             <h5 class="card-text">{{ $appointments->start_time }}</h5>

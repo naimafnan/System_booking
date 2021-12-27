@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Appointment;
-use App\Models\provider_details;
 use App\Models\User;
+use App\Models\provider_details;
 use App\Models\state;
 use App\Models\Services;
 use App\Models\provider_type;
 use Illuminate\Http\Request;
 
-class listAllCarController extends Controller
+class listAllDoctorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +18,8 @@ class listAllCarController extends Controller
      */
     public function index()
     {
-        // $cars=User::join("provider_details","provider_details.user_id","=","users.id")->where('provider_id',3)->get();
-        $cars=User::where('role_id',5)->get();
-        return view("admin.provider.carListing",compact('cars'));
+        $doctors=User::where('role_id',1)->get();
+        return view('admin.doctor.listAllDoctor',compact('doctors'));
     }
 
     /**
@@ -103,7 +101,7 @@ class listAllCarController extends Controller
         $provider->end_rest_time=$request->endRestTime ?? null;
         $provider->slot_duration=$request->TimeSlots ?? null;
         $provider->save();
-        return redirect()->back()->with('msg', 'Car Updated');
+        return redirect()->back()->with('msg', 'doctor Updated');
     }
 
     /**
@@ -116,6 +114,6 @@ class listAllCarController extends Controller
     {
         $users=User::find($id);
         $users->delete();
-        return redirect()->route('allCar.index')->with('msg','Car deleted successfully');
+        return redirect()->route('alldoctor.index')->with('msg','doctor deleted successfully');
     }
 }
