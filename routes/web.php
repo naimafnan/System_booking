@@ -109,4 +109,5 @@ Route::resource('/today',TodayCarController::class);
 Route::resource('/today-room', TodayRoomController::class);
 
 Route::resource('/alldoctor',listAllDoctorController::class);
+Route::post('/Create-doctor',[listAllDoctorController::class,'store'])->name('createDoctor');
 

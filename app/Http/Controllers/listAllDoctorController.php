@@ -7,6 +7,8 @@ use App\Models\provider_details;
 use App\Models\state;
 use App\Models\Services;
 use App\Models\provider_type;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class listAllDoctorController extends Controller
@@ -29,7 +31,10 @@ class listAllDoctorController extends Controller
      */
     public function create()
     {
-        //
+        $states=state::all();
+        $services=Services::where('provider_id',1)->get();
+        $provider_types=provider_type::where('provider_id',1)->get();
+        return view('admin.doctor.createDoctor',compact('states','provider_types','services'));
     }
 
     /**
@@ -40,7 +45,38 @@ class listAllDoctorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $users = new User();
+        $users-> email = $request->input('email');
+        $users-> password = Hash::make($request->input('password')); 
+        $users-> name = $request->input('name');
+        $users-> role_id = 1;
+        $users-> address1 = $request->input('add1');
+        $users-> address2 =$request->input('add2');
+        $users-> address3 = $request->input('add3');
+        $users-> address4 = $request->input('add4');
+        $users-> postcode = $request->input('postcode');
+        $users-> states_id = $request->input('state');
+        $users-> save();
+
+        $start_time=Carbon::parse('09:00:00')->format('H:i');
+        $end_time=Carbon::parse('18:00:00')->format('H:i');
+        $start_rest_time=Carbon::parse('13:00:00')->format('H:i');
+        $end_rest_time=Carbon::parse('14:00:00')->format('H:i');
+        $providerDetails = new provider_details();
+        $providerDetails->user_id = $users->id;
+        $providerDetails->provider_id=1;
+        $providerDetails->provider_type_id=$request->input('provider_type');
+        $providerDetails->company_name=$request->input('company_name');
+        $providerDetails->services_id=$request->input('service');
+        $providerDetails->level=$request->input('level');
+        $providerDetails->start_time=$start_time;
+        $providerDetails->end_time=$end_time;
+        $providerDetails->start_rest_time=$start_rest_time;
+        $providerDetails->end_rest_time=$end_rest_time;
+        $providerDetails->save();
+        
+
+        return redirect()->back()->with('msg','Doctor has been added');
     }
 
     /**

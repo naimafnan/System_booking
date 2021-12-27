@@ -129,7 +129,7 @@
                                 <div class="nav-item has-sub">
                                     <a href="#"><i class="fas fa-user-md"></i><span>Doctor</span></a>
                                     <div class="submenu-content">
-                                        <a href="" class="menu-item">Create</a>
+                                        <a href="{{ route('alldoctor.create') }}" class="menu-item">Create</a>
                                         <a href="{{ route('alldoctor.index') }}" class="menu-item">All</a>
                                     </div>
                                 </div>
