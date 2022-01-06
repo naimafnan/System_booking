@@ -10,7 +10,7 @@ use App\Models\Appointment;
 use DateTime;
 use Carbon\CarbonPeriod;
 use App\Mail\UserBooking;
-use App\Mail\NotificationDoctor;
+use App\Mail\doctorEmail;
 use App\Models\provider;
 use App\Models\provider_details;
 use App\Models\Services;
@@ -113,31 +113,32 @@ class HomepageController extends Controller
             'State'=>request()->get('State')
             
         ];
+
+        $appointment=Appointment::all();
+        
+        $doctorEmail=[
+            'name'=>auth()->user()->name,
+            'time'=>$time,
+            'date'=>Carbon::parse($date)->format('d/m/Y'),
+            'providerName'=>request()->get('providerName'),
+            'doctor_email'=>request()->get('doc_email'),
+            'company_name'=>request()->get('company_name'),
+            'Add1'=>request()->get('Add1'),
+            'Add2'=>request()->get('Add2'),
+            'Add3'=>request()->get('Add3'),
+            'Add4'=>request()->get('Add4'),
+            'Postcode'=>request()->get('Postcode'),
+            'State'=>request()->get('State')
+        ];
+        
+        Mail::to(request()->get('doc_email') )->send(new \App\Mail\doctorEmail($doctorEmail));
+
         Mail::to(auth()->user()->email)->send(new \App\Mail\UserBooking($userBooking));
         return redirect()->back()->with('msg','Your appointment was booked');
         
     }else{
         return redirect()->back()->with('errmsg','Start time cannot be the same as End time');
     }
-        //send email notification
-        $appointment=Appointment::all();
-        
-        $notificationDoctor=[
-            'name'=>auth()->user()->name,
-            'time'=>$time,
-            'date'=>Carbon::parse($date)->format('d/m/Y'),
-            'doctor_name'=>request()->get('doctorName'),
-            'doctor_email'=>request()->get('doc_email'),
-            'cli_name'=>request()->get('clinicName'),
-            'doctor_add1'=>request()->get('docAdd1'),
-            'doctor_add2'=>request()->get('docAdd2'),
-            'doctor_add3'=>request()->get('docAdd3'),
-            'doctor_add4'=>request()->get('docAdd4'),
-            'doctor_postcode'=>request()->get('docPostcode'),
-            'doctor_state'=>request()->get('docState')
-        ];
-        
-        // Mail::to(request()->get('doc_email') )->send(new \App\Mail\NotificationDoctor($notificationDoctor));
         
     }
     public function carBooking(Request $request){

@@ -15,6 +15,8 @@ use App\Http\Controllers\listAllRoomController;
 use App\Http\Controllers\TodayCarController;
 use App\Http\Controllers\TodayRoomController;
 use App\Http\Controllers\listAllDoctorController;
+use App\Http\Controllers\listAllUserController;
+use App\Http\Controllers\listAllAppointmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -111,3 +113,6 @@ Route::resource('/today-room', TodayRoomController::class);
 Route::resource('/alldoctor',listAllDoctorController::class);
 Route::post('/Create-doctor',[listAllDoctorController::class,'store'])->name('createDoctor');
 
+Route::resource('/allCustomer',listAllUserController::class);
+
+Route::resource('/allappointment',listAllAppointmentController::class);

@@ -19,4 +19,8 @@ class provider_details extends Model
     public function Service(){
         return $this->hasOne('App\Models\Services','id','services_id');
     }
+
+    public function providerTypes(){
+        return $this->belongsTo(provider_type::class,'provider_type_id','id');
+    }
 }

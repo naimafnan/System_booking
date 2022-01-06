@@ -35,7 +35,7 @@
                                     Level : {{ $providers->level}}
                                 </p>
                                 <p class="lead">
-                                    Speciality : {{ $providers->provider_type }}
+                                    Speciality : {{ $providers->providerTypes->name }}
                                 </p>
                             </div>
                         </div>
@@ -115,7 +115,7 @@
                                     Level : {{ $providers->level}}
                                 </p>
                                 <p class="lead">
-                                    Type : {{ $providers->provider_type }}
+                                    Type : {{ $providers->providerTypes->name }}
                                 </p>
                             </div>
                         </div>

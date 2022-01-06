@@ -96,6 +96,10 @@ class ProviderController extends Controller
         $users-> states_id = $request->input('state');
         $users-> save();
 
+        $start_time=Carbon::parse('09:00:00')->format('H:i');
+        $end_time=Carbon::parse('18:00:00')->format('H:i');
+        $start_rest_time=Carbon::parse('13:00:00')->format('H:i');
+        $end_rest_time=Carbon::parse('14:00:00')->format('H:i');
         $providerDetails = new provider_details();
         $providerDetails->user_id = $users->id;
         $providerDetails->provider_id=2;
@@ -103,6 +107,10 @@ class ProviderController extends Controller
         $providerDetails->company_name=$request->input('company_name');
         $providerDetails->services_id=$request->input('service');
         $providerDetails->level=$request->input('level');
+        $providerDetails->start_time=$start_time;
+        $providerDetails->end_time=$end_time;
+        $providerDetails->start_rest_time=$start_rest_time;
+        $providerDetails->end_rest_time=$end_rest_time;
         $providerDetails->save();
         
 

@@ -44,11 +44,9 @@
                         {{-- <div class="card-body"> --}}
                             <h1 class="card-title text-black">{{ ucfirst($reserve->name) }}</h1>
                             <p class="card-text">{{ $reserve->level }}</p>
-                            <p class="card-text text-black-50">Type</p>
-                            <p class="card-text">{{ $reserve->provider_type_id }}</p>
                             <p class="card-text text-black-50">Location</p>
                             <p class="card-text">{{ $reserve->company_name }}</p>
-                            <p class="card-text">{{ $reserve->address1 }},{{ $reserve->address2 }},{{ $reserve->address3 }},{{ $reserve->address4 }},{{ $reserve->postcode }},{{ $reserve->states_id }}</p>
+                            <p class="card-text">{{ $reserve->address1 }},{{ $reserve->address2 }},{{ $reserve->address3 }},{{ $reserve->address4 }},{{ $reserve->postcode }},{{ $reserve->userStates->name }}</p>
                             
                             {{-- <p>{{ $reserve->level }} <br> Specialty <span id="dots">...</span><button onclick="myFunction()" id="myBtn">Read more</button></p> --}}
                         {{-- </div> --}}

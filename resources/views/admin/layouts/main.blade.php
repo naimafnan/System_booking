@@ -147,6 +147,18 @@
                                         <a href="{{ route('allMeetingRoom.index') }}" class="menu-item">All</a>
                                     </div>
                                 </div>
+                                <div class="nav-item has-sub">
+                                    <a href="#"><i class="fas fa-users"></i><span>Customer</span></a>
+                                    <div class="submenu-content">
+                                        <a href="{{ route('allCustomer.index') }}" class="menu-item">All</a>
+                                    </div>
+                                </div>
+                                <div class="nav-item has-sub">
+                                    <a href="#"><i class="far fa-handshake"></i><span>Appointment</span></a>
+                                    <div class="submenu-content">
+                                        <a href="{{ route('allappointment.index') }}" class="menu-item">All</a>
+                                    </div>
+                                </div>
                               @endif
                               <div class="nav-item active">
                                 <a onclick="event.preventDefault();

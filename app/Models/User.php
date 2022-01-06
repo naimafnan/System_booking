@@ -49,6 +49,9 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Role','id','role_id');
     }
     public function userStates(){
-        return $this->belongsTo(state::class,'id','states_id');
+        return $this->belongsTo(state::class,'states_id','id');
+    }
+    public function providerTypes(){
+        return $this->belongsTo(provider_type::class,'provider_types_id','id');
     }
 }
